@@ -48,27 +48,14 @@
         @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeUp 0.5s ease-out both; }
         .delay-1 { animation-delay: 0.1s; }
-
-        .wechat-popup {
-            display: none;
-            position: absolute;
-            left: 50%; transform: translateX(-50%);
-            bottom: 100%; margin-bottom: 10px;
-            width: 120px; height: 120px;
-            border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-            border: 1px solid #e6e3dc;
-            background: #fff;
-            z-index: 999;
-            padding: 6px;
+        .lang-btn {
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+            padding: 4px 12px; border-radius: 6px; cursor: pointer;
+            transition: all 0.25s; border: 1px solid #dce0e8;
+            background: transparent; color: #6b7280;
         }
-        .wechat-popup::after {
-            content: '';
-            position: absolute;
-            top: 100%; left: 50%; transform: translateX(-50%);
-            border: 6px solid transparent;
-            border-top-color: #fff;
-        }
+        .lang-btn:hover { border-color: #4a6fa5; color: #4a6fa5; }
+        .lang-btn.active { background: #4a6fa5; color: #fff; border-color: #4a6fa5; }
     </style>
 </head>
 <body class="bg-bg text-primary-text antialiased">
@@ -77,80 +64,77 @@
     <nav class="fixed top-0 left-0 right-0 z-50 bg-bg/88 backdrop-blur-md border-b border-border">
         <div class="max-w-content mx-auto px-5 h-14 flex items-center justify-between">
             <a href="#about" class="text-sm font-semibold tracking-[2px] text-primary-text">QIN<span class="text-accent">QI</span></a>
-            <button id="navToggle" class="sm:hidden flex flex-col gap-1 p-1 bg-none border-none cursor-pointer" aria-label="菜单">
-                <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
-                <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
-                <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
-            </button>
-            <ul id="navLinks" class="hidden sm:flex items-center gap-7 list-none">
-                <li><a href="#about" class="nav-link">关于</a></li>
-                <li><a href="#education" class="nav-link">教育</a></li>
-                <li><a href="#experience" class="nav-link">经历</a></li>
-                <li><a href="#projects" class="nav-link">项目</a></li>
-                <li><a href="#skills" class="nav-link">技能</a></li>
-                <li><a href="#portfolio" class="nav-link">作品</a></li>
-            </ul>
+            <div class="flex items-center gap-5">
+                <ul id="navLinks" class="hidden sm:flex items-center gap-7 list-none">
+                    <li><a href="#about" class="nav-link" data-i18n="nav_about">关于</a></li>
+                    <li><a href="#education" class="nav-link" data-i18n="nav_edu">教育</a></li>
+                    <li><a href="#experience" class="nav-link" data-i18n="nav_exp">经历</a></li>
+                    <li><a href="#projects" class="nav-link" data-i18n="nav_proj">项目</a></li>
+                    <li><a href="#skills" class="nav-link" data-i18n="nav_skills">技能</a></li>
+                    <li><a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">作品</a></li>
+                </ul>
+                <button id="langToggle" class="lang-btn" onclick="toggleLang()">EN</button>
+                <button id="navToggle" class="sm:hidden flex flex-col gap-1 p-1 bg-none border-none cursor-pointer" aria-label="menu">
+                    <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
+                    <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
+                    <span class="block w-5 h-[2px] bg-secondary-text rounded"></span>
+                </button>
+            </div>
         </div>
         <ul id="mobileNav" class="sm:hidden hidden flex-col bg-surface border-b border-border px-5 py-4 gap-4 list-none">
-            <li><a href="#about" class="nav-link">关于</a></li>
-            <li><a href="#education" class="nav-link">教育</a></li>
-            <li><a href="#experience" class="nav-link">经历</a></li>
-            <li><a href="#projects" class="nav-link">项目</a></li>
-            <li><a href="#skills" class="nav-link">技能</a></li>
-            <li><a href="#portfolio" class="nav-link">作品</a></li>
+            <li><a href="#about" class="nav-link" data-i18n="nav_about">关于</a></li>
+            <li><a href="#education" class="nav-link" data-i18n="nav_edu">教育</a></li>
+            <li><a href="#experience" class="nav-link" data-i18n="nav_exp">经历</a></li>
+            <li><a href="#projects" class="nav-link" data-i18n="nav_proj">项目</a></li>
+            <li><a href="#skills" class="nav-link" data-i18n="nav_skills">技能</a></li>
+            <li><a href="#portfolio" class="nav-link" data-i18n="nav_portfolio">作品</a></li>
         </ul>
     </nav>
 
     <!-- ===== Main ===== -->
     <main class="max-w-content mx-auto px-5 pt-28 pb-12">
 
-        <!-- ===== Hero + Contact ===== -->
+        <!-- ===== Hero ===== -->
         <section id="about" class="section-link pt-16 -mt-16 animate-in">
             <div class="flex flex-col lg:flex-row items-center lg:items-start gap-8 lg:gap-10">
-                <!-- Avatar -->
                 <div class="shrink-0 w-[130px] h-[173px] sm:w-[150px] sm:h-[200px] rounded-xl overflow-hidden border-2 border-border-light bg-surface shadow-card">
                     <img src="avatar.jpg" alt="秦琪" class="w-full h-full object-cover">
                 </div>
-                <!-- Center: Name + Bullets -->
                 <div class="text-center lg:text-left flex-1">
                     <div class="flex items-center justify-center lg:justify-start gap-3">
                         <h1 class="text-[1.75rem] sm:text-[2.2rem] font-bold text-primary-text tracking-wide">秦琪</h1>
-                        <span class="text-[13px] text-muted font-normal mt-1.5">1997 年 3 月</span>
+                        <span class="text-[13px] text-muted font-normal mt-1.5">1997.03</span>
                     </div>
-                    <p class="text-base text-accent font-medium mt-1">产品经理 · 3 年 B 端产品经验</p>
+                    <p class="text-base text-accent font-medium mt-1" data-i18n="hero_title">产品经理 · 3 年 B 端产品经验</p>
                     <ul class="mt-5 space-y-2.5">
                         <li class="flex items-start gap-3 text-[15px] text-secondary-text">
                             <span class="shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-[9px]"></span>
-                            <span>3 年 B 端产品全生命周期管理经验，具备从 0 到 1 产品落地能力</span>
+                            <span data-i18n="hero_p1">3 年 B 端产品全生命周期管理经验，具备从 0 到 1 产品落地能力</span>
                         </li>
                         <li class="flex items-start gap-3 text-[15px] text-secondary-text">
                             <span class="shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-[9px]"></span>
-                            <span>擅长深度用户需求洞察、产品规划与跨职能团队协作</span>
+                            <span data-i18n="hero_p2">擅长深度用户需求洞察、产品规划与跨职能团队协作</span>
                         </li>
                         <li class="flex items-start gap-3 text-[15px] text-secondary-text">
                             <span class="shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-[9px]"></span>
-                            <span>独立主导核心产品实现 <strong class="text-primary-text font-semibold">200%</strong> 客户增长率，打造三大 AI 亮点功能</span>
+                            <span data-i18n-html="hero_p3">独立主导核心产品实现 <strong class="text-primary-text font-semibold">200%</strong> 客户增长率，打造三大 AI 亮点功能</span>
                         </li>
                         <li class="flex items-start gap-3 text-[15px] text-secondary-text">
                             <span class="shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-[9px]"></span>
-                            <span>211 硕士 · 国家一等奖学金 · 成绩前 10%</span>
+                            <span data-i18n="hero_p4">211 硕士 · 国家一等奖学金 · 成绩前 10%</span>
                         </li>
                     </ul>
-                    <!-- Contact Strip -->
                     <div class="flex flex-wrap justify-center lg:justify-start items-center gap-x-6 gap-y-2 mt-6 pt-4 border-t border-border-light">
                         <span class="inline-flex items-center gap-1.5 text-[13px] text-secondary-text">
                             <svg class="w-3.5 h-3.5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                            <!-- TODO: 替换为真实邮箱 -->
                             qinqi_qq77@163.com
                         </span>
                         <span class="inline-flex items-center gap-1.5 text-[13px] text-secondary-text">
                             <svg class="w-3.5 h-3.5 text-accent shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                            <!-- TODO: 替换为真实电话 -->
                             133-9385-6953
                         </span>
                     </div>
                 </div>
-                <!-- Right: Radar Chart -->
                 <div class="shrink-0">
                     <svg width="230" height="260" viewBox="0 0 300 280" class="w-[190px] h-[215px] sm:w-[230px] sm:h-[260px]">
                         <polygon points="140,40 226.6,90 226.6,190 140,240 53.4,190 53.4,90" fill="none" stroke="#e6e3dc" stroke-width="1"/>
@@ -171,12 +155,12 @@
                         <circle cx="140" cy="225" r="3.5" fill="#4a6fa5"/>
                         <circle cx="70.7" cy="180" r="3.5" fill="#4a6fa5"/>
                         <circle cx="70.7" cy="100" r="3.5" fill="#4a6fa5"/>
-                        <text x="140" y="30" text-anchor="middle" font-size="11" fill="#1d1d1f" font-weight="500">产品规划</text>
-                        <text x="238" y="93" text-anchor="start" font-size="11" fill="#1d1d1f" font-weight="500">需求分析</text>
-                        <text x="222" y="192" text-anchor="start" font-size="11" fill="#1d1d1f" font-weight="500">数据分析</text>
-                        <text x="140" y="252" text-anchor="middle" font-size="11" fill="#1d1d1f" font-weight="500">跨部门协作</text>
-                        <text x="46" y="192" text-anchor="end" font-size="11" fill="#1d1d1f" font-weight="500">AI 应用</text>
-                        <text x="46" y="93" text-anchor="end" font-size="11" fill="#1d1d1f" font-weight="500">商务沟通</text>
+                        <text x="140" y="30" text-anchor="middle" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_pm">产品规划</text>
+                        <text x="238" y="93" text-anchor="start" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_req">需求分析</text>
+                        <text x="222" y="192" text-anchor="start" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_data">数据分析</text>
+                        <text x="140" y="252" text-anchor="middle" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_collab">跨部门协作</text>
+                        <text x="46" y="192" text-anchor="end" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_ai">AI 应用</text>
+                        <text x="46" y="93" text-anchor="end" font-size="11" fill="#1d1d1f" font-weight="500" data-i18n="chart_comm">商务沟通</text>
                     </svg>
                 </div>
             </div>
@@ -184,36 +168,36 @@
 
         <!-- ===== Education ===== -->
         <section id="education" class="section-link pt-16 -mt-6 animate-in delay-1">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">教育经历</h2>
+            <h2 class="text-[17px] font-bold text-primary-text mb-6" data-i18n="edu_title">教育经历</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
                     <div class="flex items-start justify-between gap-2">
                         <div>
-                            <h3 class="text-[15px] font-semibold text-primary-text">南京航空航天大学（211）</h3>
-                            <p class="text-[14px] text-secondary-text mt-0.5">管理科学与工程</p>
+                            <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="edu_master_school">南京航空航天大学（211）</h3>
+                            <p class="text-[14px] text-secondary-text mt-0.5" data-i18n="edu_master_major">管理科学与工程</p>
                         </div>
-                        <span class="shrink-0 text-[12px] font-medium text-accent bg-[#e8eff6] px-2.5 py-0.5 rounded">硕士</span>
+                        <span class="shrink-0 text-[12px] font-medium text-accent bg-[#e8eff6] px-2.5 py-0.5 rounded" data-i18n="edu_master_tag">硕士</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-[13px] text-secondary-text">
                         <span>2019.09 — 2022.04</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
-                        <span>成绩前 10%</span>
+                        <span data-i18n="edu_master_rank">成绩前 10%</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
-                        <span>国家一等奖学金</span>
+                        <span data-i18n="edu_master_scholar">国家一等奖学金</span>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
                     <div class="flex items-start justify-between gap-2">
                         <div>
-                            <h3 class="text-[15px] font-semibold text-primary-text">江西财经大学</h3>
-                            <p class="text-[14px] text-secondary-text mt-0.5">行政管理</p>
+                            <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="edu_bachelor_school">江西财经大学</h3>
+                            <p class="text-[14px] text-secondary-text mt-0.5" data-i18n="edu_bachelor_major">行政管理</p>
                         </div>
-                        <span class="shrink-0 text-[12px] font-medium text-accent bg-[#e8eff6] px-2.5 py-0.5 rounded">本科</span>
+                        <span class="shrink-0 text-[12px] font-medium text-accent bg-[#e8eff6] px-2.5 py-0.5 rounded" data-i18n="edu_bachelor_tag">本科</span>
                     </div>
                     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-[13px] text-secondary-text">
                         <span>2015.09 — 2019.06</span>
                         <span class="w-1 h-1 rounded-full bg-border"></span>
-                        <span>成绩前 5%</span>
+                        <span data-i18n="edu_bachelor_rank">成绩前 5%</span>
                     </div>
                 </div>
             </div>
@@ -221,47 +205,47 @@
 
         <!-- ===== Work Experience ===== -->
         <section id="experience" class="section-link pt-16 -mt-6">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">工作经历</h2>
+            <h2 class="text-[17px] font-bold text-primary-text mb-6" data-i18n="exp_title">工作经历</h2>
             <div class="space-y-5">
                 <div class="bg-surface rounded-xl shadow-card border border-border-light p-6 sm:p-7 transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
-                        <h3 class="text-[15px] font-semibold text-primary-text">北京感易智能科技有限公司</h3>
-                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2025.11 — 2026.02 <span class="text-[13px] text-secondary-text font-normal">· 兼职</span></span>
+                        <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="exp1_company">北京感易智能科技有限公司</h3>
+                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2025.11 — 2026.02 <span class="text-[13px] text-secondary-text font-normal" data-i18n="exp1_type">· 兼职</span></span>
                     </div>
-                    <p class="text-[14px] text-secondary-text mb-3">AI 数据运营</p>
+                    <p class="text-[14px] text-secondary-text mb-3" data-i18n="exp1_role">AI 数据运营</p>
                     <ul class="space-y-2">
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            负责 AI 训练数据标准化梳理、标签体系搭建及标注管控
+                            <span data-i18n="exp1_d1">负责 AI 训练数据标准化梳理、标签体系搭建及标注管控</span>
                         </li>
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            为算法模型输出质量进行校验、bad case 分析反馈，联动算法团队推动模型迭代
+                            <span data-i18n="exp1_d2">为算法模型输出质量进行校验、bad case 分析反馈，联动算法团队推动模型迭代</span>
                         </li>
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            将 AI 风控模型召回率 <strong class="text-primary-text font-semibold">提升 23%</strong>
+                            <span data-i18n-html="exp1_d3">将 AI 风控模型召回率 <strong class="text-primary-text font-semibold">提升 23%</strong></span>
                         </li>
                     </ul>
                 </div>
                 <div class="bg-surface rounded-xl shadow-card border border-border-light p-6 sm:p-7 transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-1">
-                        <h3 class="text-[15px] font-semibold text-primary-text">江苏金智教育信息股份有限公司</h3>
-                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2021.12 — 2025.03 <span class="text-[13px] text-secondary-text font-normal">· 全职</span></span>
+                        <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="exp2_company">江苏金智教育信息股份有限公司</h3>
+                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2021.12 — 2025.03 <span class="text-[13px] text-secondary-text font-normal" data-i18n="exp2_type">· 全职</span></span>
                     </div>
-                    <p class="text-[14px] text-secondary-text mb-3">教工管理与服务产品事业部 · 产品经理</p>
+                    <p class="text-[14px] text-secondary-text mb-3" data-i18n="exp2_role">教工管理与服务产品事业部 · 产品经理</p>
                     <ul class="space-y-2">
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            独立负责"高校合同运营监管平台"产品全生命周期管理，涵盖年度规划、需求设计、版本迭代、数据分析及营销赋能
+                            <span data-i18n="exp2_d1">独立负责"高校合同运营监管平台"产品全生命周期管理，涵盖年度规划、需求设计、版本迭代、数据分析及营销赋能</span>
                         </li>
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            主导三大 AI 增值服务模块从 0 到 1 落地，基于 Dify 平台 + prompt 工程实现，单产品收益增量 <strong class="text-primary-text font-semibold">约 40 万元</strong>
+                            <span data-i18n-html="exp2_d2">主导三大 AI 增值服务模块从 0 到 1 落地，基于 Dify 平台 + prompt 工程实现，单产品收益增量 <strong class="text-primary-text font-semibold">约 40 万元</strong></span>
                         </li>
                         <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                             <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                            重构报价体系实现按模块组合售卖，降低工程实施成本 <strong class="text-primary-text font-semibold">36%</strong>，产品报价提升 <strong class="text-primary-text font-semibold">约 30%</strong>
+                            <span data-i18n-html="exp2_d3">重构报价体系实现按模块组合售卖，降低工程实施成本 <strong class="text-primary-text font-semibold">36%</strong>，产品报价提升 <strong class="text-primary-text font-semibold">约 30%</strong></span>
                         </li>
                     </ul>
                 </div>
@@ -270,135 +254,133 @@
 
         <!-- ===== Projects ===== -->
         <section id="projects" class="section-link pt-16 -mt-6">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">项目经历</h2>
+            <h2 class="text-[17px] font-bold text-primary-text mb-6" data-i18n="proj_title">项目经历</h2>
             <div class="space-y-5">
                 <div class="bg-surface rounded-xl shadow-card border border-border-light p-6 sm:p-7 transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
-                        <h3 class="text-[15px] font-semibold text-primary-text">中央财经大学合同运营监管平台</h3>
-                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2024.06 — 2024.12 <span class="text-[13px] text-secondary-text font-normal">· 合同产品负责人</span></span>
+                        <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="proj1_name">中央财经大学合同运营监管平台</h3>
+                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2024.06 — 2024.12 <span class="text-[13px] text-secondary-text font-normal" data-i18n="proj1_role">· 合同产品负责人</span></span>
                     </div>
                     <div class="space-y-3">
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">背景</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">传统合同管理人工审核效率低、风险高，需打通学校合同管理全生命周期各环节，建立多功能综合性服务平台。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_bg">背景</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n="proj1_bg">传统合同管理人工审核效率低、风险高，需打通学校合同管理全生命周期各环节，建立多功能综合性服务平台。</p>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">行动</span>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_action">行动</span>
                             <ul class="mt-1 space-y-1.5">
                                 <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                                     <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                                    设计并落地高度可配置的权限管理体系，支持按角色、归口部门、合同金额灵活授权
+                                    <span data-i18n="proj1_a1">设计并落地高度可配置的权限管理体系，支持按角色、归口部门、合同金额灵活授权</span>
                                 </li>
                                 <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                                     <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                                    主导合同平台与采购、财务、档案等多系统 API 对接，实现关键数据自动同步
+                                    <span data-i18n="proj1_a2">主导合同平台与采购、财务、档案等多系统 API 对接，实现关键数据自动同步</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">成果</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">上线后获校方颁发 <strong class="text-primary-text font-semibold">客户满意书</strong>，成为后续院校推广的标杆示范。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_result">成果</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n-html="proj1_res">上线后获校方颁发 <strong class="text-primary-text font-semibold">客户满意书</strong>，成为后续院校推广的标杆示范。</p>
                         </div>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl shadow-card border border-border-light p-6 sm:p-7 transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
-                        <h3 class="text-[15px] font-semibold text-primary-text">浙江纺织服装学院数智化治理建设</h3>
-                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2023.04 — 2023.10 <span class="text-[13px] text-secondary-text font-normal">· 产品线核心成员</span></span>
+                        <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="proj2_name">浙江纺织服装学院数智化治理建设</h3>
+                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2023.04 — 2023.10 <span class="text-[13px] text-secondary-text font-normal" data-i18n="proj2_role">· 产品线核心成员</span></span>
                     </div>
                     <div class="space-y-3">
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">背景</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">推进学校内部控制建设工作，建设合同管理、采购管理、内控平台等系统形成数智化治理方案。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_bg">背景</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n="proj2_bg">推进学校内部控制建设工作，建设合同管理、采购管理、内控平台等系统形成数智化治理方案。</p>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">行动</span>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_action">行动</span>
                             <ul class="mt-1 space-y-1.5">
                                 <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                                     <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                                    从 0 到 1 主导规章制度治理平台全流程需求分析与 PRD 输出，与学校共创数智化治理模式
+                                    <span data-i18n="proj2_a1">从 0 到 1 主导规章制度治理平台全流程需求分析与 PRD 输出，与学校共创数智化治理模式</span>
                                 </li>
                                 <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                                     <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                                    攻克"履约流程"与"结算节点"双向打通的复杂业务逻辑，使其成为平台核心价值点
+                                    <span data-i18n="proj2_a2">攻克"履约流程"与"结算节点"双向打通的复杂业务逻辑，使其成为平台核心价值点</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">成果</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">项目按期验收，团队获评公司 <strong class="text-primary-text font-semibold">"2023 年年度优秀团队"</strong>。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_result">成果</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n-html="proj2_res">项目按期验收，团队获评公司 <strong class="text-primary-text font-semibold">"2023 年年度优秀团队"</strong>。</p>
                         </div>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl shadow-card border border-border-light p-6 sm:p-7 transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
-                        <h3 class="text-[15px] font-semibold text-primary-text">中南智慧案场移动端 APP</h3>
-                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-whitespace-nowrap">2021.06 — 2021.09 <span class="text-[13px] text-secondary-text font-normal">· 产品经理（实习）</span></span>
+                        <h3 class="text-[15px] font-semibold text-primary-text" data-i18n="proj3_name">中南智慧案场移动端 APP</h3>
+                        <span class="text-[14px] text-accent font-medium shrink-0 whitespace-nowrap">2021.06 — 2021.09 <span class="text-[13px] text-secondary-text font-normal" data-i18n="proj3_role">· 产品经理（实习）</span></span>
                     </div>
                     <div class="space-y-3">
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">背景</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">负责 ToC 移动端核心功能模块设计，需通过数据驱动提升用户拉新、激活与留存指标。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_bg">背景</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n="proj3_bg">负责 ToC 移动端核心功能模块设计，需通过数据驱动提升用户拉新、激活与留存指标。</p>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">行动</span>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_action">行动</span>
                             <ul class="mt-1 space-y-1.5">
                                 <li class="flex items-start gap-3 text-[14px] text-secondary-text leading-relaxed">
                                     <span class="shrink-0 w-1 h-1 rounded-full bg-accent/60 mt-[9px]"></span>
-                                    主导设计"购房资格测试"工具，基于用户画像与地域政策构建规则引擎驱动逻辑
+                                    <span data-i18n="proj3_a1">主导设计"购房资格测试"工具，基于用户画像与地域政策构建规则引擎驱动逻辑</span>
                                 </li>
                             </ul>
                         </div>
                         <div>
-                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]">成果</span>
-                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed">功能上线一个月内使用率突破 <strong class="text-primary-text font-semibold">40%</strong>。</p>
+                            <span class="text-[12px] font-semibold text-accent uppercase tracking-[1px]" data-i18n="label_result">成果</span>
+                            <p class="text-[14px] text-secondary-text mt-0.5 leading-relaxed" data-i18n-html="proj3_res">功能上线一个月内使用率突破 <strong class="text-primary-text font-semibold">40%</strong>。</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== Skills (4 cards) ===== -->
+        <!-- ===== Skills ===== -->
         <section id="skills" class="section-link pt-16 -mt-6">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">专业技能</h2>
+            <h2 class="text-[17px] font-bold text-primary-text mb-6" data-i18n="skills_title">专业技能</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
-                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3">产品能力</h3>
+                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3" data-i18n="skills_prod">产品能力</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]">用户访谈</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]">PRD 撰写</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]">需求分析与管理</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]">产品规划与设计</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]" data-i18n="tag_interview">用户访谈</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]" data-i18n="tag_prd">PRD 撰写</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]" data-i18n="tag_analysis">需求分析与管理</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf0f5] text-[#4a5568] border border-[#dce0e8]" data-i18n="tag_planning">产品规划与设计</span>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
-                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3">数据分析</h3>
+                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3" data-i18n="skills_data">数据分析</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3ef] text-[#3d6b52] border border-[#d8e4dd]">数据分析（SQL）</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3ef] text-[#3d6b52] border border-[#d8e4dd]">用户行为分析</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3ef] text-[#3d6b52] border border-[#d8e4dd]" data-i18n="tag_sql">数据分析（SQL）</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3ef] text-[#3d6b52] border border-[#d8e4dd]" data-i18n="tag_behavior">用户行为分析</span>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
-                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3">AI 与工具</h3>
+                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3" data-i18n="skills_ai">AI 与工具</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]">Dify</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]">Prompt 工程</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]">内部知识库</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]">Xmind</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]">Axure</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]">Jira</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]">WorkBuddy</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]" data-i18n="tag_dify">Dify</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]" data-i18n="tag_prompt">Prompt 工程</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]" data-i18n="tag_kb">内部知识库</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]" data-i18n="tag_xmind">Xmind</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]" data-i18n="tag_axure">Axure</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]" data-i18n="tag_jira">Jira</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]" data-i18n="tag_workbuddy">WorkBuddy</span>
                         <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#f5f2ed] text-[#6b5d4a] border border-[#e8e2d8]">VSCode</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]">Claude Code</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#efedf5] text-[#5a4d7a] border border-[#dddae8]">VSCode</span>
                     </div>
                 </div>
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light">
-                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3">领域知识</h3>
+                    <h3 class="text-[12px] font-semibold tracking-[1.5px] text-accent uppercase mb-3" data-i18n="skills_domain">领域知识</h3>
                     <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]">高校合同管理</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]">采购管理流程</span>
-                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]">AI 应用场景</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]" data-i18n="tag_contract">高校合同管理</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]" data-i18n="tag_procure">采购管理流程</span>
+                        <span class="px-3 py-1 rounded-full text-[12px] font-medium bg-[#edf3f3] text-[#3d6b6b] border border-[#d8e4e4]" data-i18n="tag_ai_app">AI 应用场景</span>
                     </div>
                 </div>
             </div>
@@ -406,17 +388,20 @@
 
         <!-- ===== Languages ===== -->
         <section id="languages" class="section-link pt-14 -mt-6">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">语言能力</h2>
-            <div class="text-[15px] text-secondary-text">
+            <h2 class="text-[17px] font-bold text-primary-text mb-6" data-i18n="lang_title">语言能力</h2>
+            <div class="text-[15px] text-secondary-text" data-i18n="lang_en">
                 英语 · CET-4 / CET-6，读写能力良好
             </div>
         </section>
 
         <!-- ===== Portfolio ===== -->
         <section id="portfolio" class="section-link pt-16 -mt-6">
-            <h2 class="text-[17px] font-bold text-primary-text mb-6">个人作品<sup class="text-[11px] text-secondary-text font-normal ml-1">已脱密，供参考</sup></h2>
+            <h2 class="text-[17px] font-bold text-primary-text mb-6">
+                <span data-i18n="portfolio_title">个人作品</span>
+                <sup class="text-[11px] text-secondary-text font-normal ml-1" data-i18n="portfolio_sub">已脱密，供参考</sup>
+            </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <!-- PRD 文档 -->
+                <!-- PRD -->
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex items-start gap-4">
                         <div class="shrink-0 w-10 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -425,28 +410,28 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-[14px] font-semibold text-primary-text">规章制度管理平台</h3>
-                            <p class="text-[12px] text-secondary-text mt-0.5">PRD 需求说明书 · V1.0</p>
+                            <h3 class="text-[14px] font-semibold text-primary-text" data-i18n="portfolio_prd_name">规章制度管理平台</h3>
+                            <p class="text-[12px] text-secondary-text mt-0.5" data-i18n="portfolio_prd_desc">PRD 需求说明书 · V1.0</p>
                             <div class="mt-3 flex gap-3">
                                 <a href="规章制度管理平台-V1.0需求说明书.pdf" target="_blank" rel="noopener noreferrer"
                                    class="inline-flex items-center gap-1.5 text-[13px] font-medium text-accent hover:text-accent/80 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
-                                    在线预览
+                                    <span data-i18n="portfolio_preview">在线预览</span>
                                 </a>
                                 <a href="规章制度管理平台-V1.0需求说明书.pdf" download
                                    class="inline-flex items-center gap-1.5 text-[13px] font-medium text-secondary-text hover:text-primary-text transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                                     </svg>
-                                    下载
+                                    <span data-i18n="portfolio_dl">下载</span>
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- 原型文档 -->
+                <!-- Prototype -->
                 <div class="bg-surface rounded-xl p-5 shadow-card border border-border-light transition-all duration-300 hover:shadow-card-hover">
                     <div class="flex items-start gap-4">
                         <div class="shrink-0 w-10 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -455,15 +440,15 @@
                             </svg>
                         </div>
                         <div class="flex-1 min-w-0">
-                            <h3 class="text-[14px] font-semibold text-primary-text">结算确认原型</h3>
-                            <p class="text-[12px] text-secondary-text mt-0.5">Axure 原型 · 在线预览</p>
+                            <h3 class="text-[14px] font-semibold text-primary-text" data-i18n="portfolio_proto_name">结算确认原型</h3>
+                            <p class="text-[12px] text-secondary-text mt-0.5" data-i18n="portfolio_proto_desc">Axure 原型 · 在线预览</p>
                             <div class="mt-3">
-                                <a href="http://127.0.0.1:32767/start.html#id=40d6yy&p=%E7%94%B3%E8%AF%B7%E8%A1%A8%E5%8D%95&g=1" target="_blank" rel="noopener noreferrer"
+                                <a href="axure/start.html#id=40d6yy&p=%E7%94%B3%E8%AF%B7%E8%A1%A8%E5%8D%95&g=1" target="_blank" rel="noopener noreferrer"
                                    class="inline-flex items-center gap-1.5 text-[13px] font-medium text-accent hover:text-accent/80 transition-colors">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
                                     </svg>
-                                    在线预览
+                                    <span data-i18n="portfolio_proto_preview">在线预览</span>
                                 </a>
                             </div>
                         </div>
@@ -474,32 +459,166 @@
 
         <!-- ===== Resume ===== -->
         <div class="mt-12 pt-6 border-t border-border-light text-center">
-            <p class="text-[14px] text-secondary-text mb-4">如需详细了解项目细节与成果数据，欢迎下载完整简历：</p>
-            <div class="flex flex-wrap items-center justify-center gap-3">
-                <a href="秦琪简历_3年产品经理工作经验_211硕t.pdf" target="_blank" rel="noopener noreferrer"
-                   class="inline-flex items-center gap-2.5 px-8 py-3 rounded-xl border border-accent text-accent text-[15px] font-medium transition-all duration-300 hover:bg-accent hover:text-white hover:shadow-lg hover:shadow-accent/20">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                    </svg>
-                    在线预览
-                </a>
-                <a href="秦琪简历_3年产品经理工作经验_211硕t.pdf" download
-                   class="inline-flex items-center gap-2.5 px-8 py-3 rounded-xl border border-border text-secondary-text text-[15px] font-medium transition-all duration-300 hover:bg-surface hover:text-primary-text hover:shadow-card">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                    下载
-                </a>
-            </div>
+            <p class="text-[14px] text-secondary-text mb-4" data-i18n="resume_hint">如需详细了解项目细节与成果数据，欢迎下载完整简历：</p>
+            <a href="秦琪简历_3年产品经理工作经验_211硕t.pdf" download
+               class="inline-flex items-center gap-2.5 px-8 py-3 rounded-xl border border-accent text-accent text-[15px] font-medium transition-all duration-300 hover:bg-accent hover:text-white hover:shadow-lg hover:shadow-accent/20">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                <span data-i18n="resume_btn">下载简历 (PDF)</span>
             </a>
         </div>
 
     </main>
 
     <footer class="text-center py-8 text-[13px] text-muted border-t border-border-light">
-        &copy; 2026 秦琪 · 个人主页
+        &copy; 2026 <span data-i18n="footer">秦琪 · 个人主页</span>
     </footer>
 
+    <script>
+        const translations = {
+            zh: {
+                nav_about: '关于', nav_edu: '教育', nav_exp: '经历',
+                nav_proj: '项目', nav_skills: '技能', nav_portfolio: '作品',
+                hero_title: '产品经理 · 3 年 B 端产品经验',
+                hero_p1: '3 年 B 端产品全生命周期管理经验，具备从 0 到 1 产品落地能力',
+                hero_p2: '擅长深度用户需求洞察、产品规划与跨职能团队协作',
+                hero_p3: '独立主导核心产品实现 <strong class="text-primary-text font-semibold">200%</strong> 客户增长率，打造三大 AI 亮点功能',
+                hero_p4: '211 硕士 · 国家一等奖学金 · 成绩前 10%',
+                chart_pm: '产品规划', chart_req: '需求分析', chart_data: '数据分析',
+                chart_collab: '跨部门协作', chart_ai: 'AI 应用', chart_comm: '商务沟通',
+                edu_title: '教育经历',
+                edu_master_school: '南京航空航天大学（211）', edu_master_major: '管理科学与工程',
+                edu_master_tag: '硕士', edu_master_rank: '成绩前 10%', edu_master_scholar: '国家一等奖学金',
+                edu_bachelor_school: '江西财经大学', edu_bachelor_major: '行政管理',
+                edu_bachelor_tag: '本科', edu_bachelor_rank: '成绩前 5%',
+                exp_title: '工作经历',
+                exp1_company: '北京感易智能科技有限公司', exp1_type: '· 兼职', exp1_role: 'AI 数据运营',
+                exp1_d1: '负责 AI 训练数据标准化梳理、标签体系搭建及标注管控',
+                exp1_d2: '为算法模型输出质量进行校验、bad case 分析反馈，联动算法团队推动模型迭代',
+                exp1_d3: '将 AI 风控模型召回率 <strong class="text-primary-text font-semibold">提升 23%</strong>',
+                exp2_company: '江苏金智教育信息股份有限公司', exp2_type: '· 全职',
+                exp2_role: '教工管理与服务产品事业部 · 产品经理',
+                exp2_d1: '独立负责"高校合同运营监管平台"产品全生命周期管理，涵盖年度规划、需求设计、版本迭代、数据分析及营销赋能',
+                exp2_d2: '主导三大 AI 增值服务模块从 0 到 1 落地，基于 Dify 平台 + prompt 工程实现，单产品收益增量 <strong class="text-primary-text font-semibold">约 40 万元</strong>',
+                exp2_d3: '重构报价体系实现按模块组合售卖，降低工程实施成本 <strong class="text-primary-text font-semibold">36%</strong>，产品报价提升 <strong class="text-primary-text font-semibold">约 30%</strong>',
+                proj_title: '项目经历',
+                label_bg: '背景', label_action: '行动', label_result: '成果',
+                proj1_name: '中央财经大学合同运营监管平台', proj1_role: '· 合同产品负责人',
+                proj1_bg: '传统合同管理人工审核效率低、风险高，需打通学校合同管理全生命周期各环节，建立多功能综合性服务平台。',
+                proj1_a1: '设计并落地高度可配置的权限管理体系，支持按角色、归口部门、合同金额灵活授权',
+                proj1_a2: '主导合同平台与采购、财务、档案等多系统 API 对接，实现关键数据自动同步',
+                proj1_res: '上线后获校方颁发 <strong class="text-primary-text font-semibold">客户满意书</strong>，成为后续院校推广的标杆示范。',
+                proj2_name: '浙江纺织服装学院数智化治理建设', proj2_role: '· 产品线核心成员',
+                proj2_bg: '推进学校内部控制建设工作，建设合同管理、采购管理、内控平台等系统形成数智化治理方案。',
+                proj2_a1: '从 0 到 1 主导规章制度治理平台全流程需求分析与 PRD 输出，与学校共创数智化治理模式',
+                proj2_a2: '攻克"履约流程"与"结算节点"双向打通的复杂业务逻辑，使其成为平台核心价值点',
+                proj2_res: '项目按期验收，团队获评公司 <strong class="text-primary-text font-semibold">"2023 年年度优秀团队"</strong>。',
+                proj3_name: '中南智慧案场移动端 APP', proj3_role: '· 产品经理（实习）',
+                proj3_bg: '负责 ToC 移动端核心功能模块设计，需通过数据驱动提升用户拉新、激活与留存指标。',
+                proj3_a1: '主导设计"购房资格测试"工具，基于用户画像与地域政策构建规则引擎驱动逻辑',
+                proj3_res: '功能上线一个月内使用率突破 <strong class="text-primary-text font-semibold">40%</strong>。',
+                skills_title: '专业技能',
+                skills_prod: '产品能力', skills_data: '数据分析', skills_ai: 'AI 与工具', skills_domain: '领域知识',
+                tag_interview: '用户访谈', tag_prd: 'PRD 撰写', tag_analysis: '需求分析与管理', tag_planning: '产品规划与设计',
+                tag_sql: '数据分析（SQL）', tag_behavior: '用户行为分析',
+                tag_dify: 'Dify', tag_prompt: 'Prompt 工程', tag_kb: '内部知识库',
+                tag_xmind: 'Xmind', tag_axure: 'Axure', tag_jira: 'Jira', tag_workbuddy: 'WorkBuddy',
+                tag_contract: '高校合同管理', tag_procure: '采购管理流程', tag_ai_app: 'AI 应用场景',
+                lang_title: '语言能力', lang_en: '英语 · CET-4 / CET-6，读写能力良好',
+                resume_hint: '如需详细了解项目细节与成果数据，欢迎下载完整简历：',
+                resume_btn: '下载简历 (PDF)',
+                portfolio_title: '个人作品', portfolio_sub: '已脱密，供参考',
+                portfolio_prd_name: '规章制度管理平台', portfolio_prd_desc: 'PRD 需求说明书 · V1.0',
+                portfolio_preview: '在线预览', portfolio_dl: '下载',
+                portfolio_proto_name: '结算确认原型', portfolio_proto_desc: 'Axure 原型 · 在线预览',
+                portfolio_proto_preview: '在线预览',
+                footer: '秦琪 · 个人主页',
+            },
+            en: {
+                nav_about: 'About', nav_edu: 'Education', nav_exp: 'Experience',
+                nav_proj: 'Projects', nav_skills: 'Skills', nav_portfolio: 'Portfolio',
+                hero_title: 'Product Manager · 3 Years in B2B Products',
+                hero_p1: '3 years of full-lifecycle B2B product management with end-to-end delivery capability',
+                hero_p2: 'Deep user insight, product planning, and cross-functional team collaboration',
+                hero_p3: 'Drove <strong class="text-primary-text font-semibold">200%</strong> customer growth, delivered 3 AI-powered features',
+                hero_p4: 'Master\'s degree · National Scholarship · Top 10%',
+                chart_pm: 'Product Mgmt', chart_req: 'Req Analysis', chart_data: 'Data Analysis',
+                chart_collab: 'Collaboration', chart_ai: 'AI Apps', chart_comm: 'Communication',
+                edu_title: 'Education',
+                edu_master_school: 'Nanjing Univ. of Aero. & Astro. (211)', edu_master_major: 'Management Science & Engineering',
+                edu_master_tag: 'Master', edu_master_rank: 'Top 10%', edu_master_scholar: 'National First-Class Scholarship',
+                edu_bachelor_school: 'Jiangxi Univ. of Finance & Economics', edu_bachelor_major: 'Administrative Management',
+                edu_bachelor_tag: 'Bachelor', edu_bachelor_rank: 'Top 5%',
+                exp_title: 'Experience',
+                exp1_company: 'Beijing Ganyi Intelligent Technology Co., Ltd.', exp1_type: '· Part-time', exp1_role: 'AI Data Operations',
+                exp1_d1: 'Standardized AI training data, built label system, managed annotation quality',
+                exp1_d2: 'Validated model outputs, conducted bad case analysis, collaborated with algorithm team',
+                exp1_d3: 'Improved AI risk control model recall rate by <strong class="text-primary-text font-semibold">23%</strong>',
+                exp2_company: 'JinZhi Education Information Co., Ltd.', exp2_type: '· Full-time',
+                exp2_role: 'Product Manager · Faculty Management Division',
+                exp2_d1: 'Led lifecycle management of "University Contract Supervision Platform" including roadmap, design, iteration, data analysis and marketing',
+                exp2_d2: 'Delivered 3 AI modules from 0 to 1 using Dify + prompt engineering, generating <strong class="text-primary-text font-semibold">¥400K</strong> incremental revenue',
+                exp2_d3: 'Reconstructed pricing model with modular sales, reduced delivery costs by <strong class="text-primary-text font-semibold">36%</strong>, increased product pricing by <strong class="text-primary-text font-semibold">30%</strong>',
+                proj_title: 'Projects',
+                label_bg: 'Background', label_action: 'Action', label_result: 'Result',
+                proj1_name: 'Central University of Finance Contract Platform', proj1_role: '· Product Lead',
+                proj1_bg: 'Built a full-lifecycle contract management platform to replace inefficient manual review processes at a major university.',
+                proj1_a1: 'Designed a highly configurable permission system with role, department, and amount-based access control',
+                proj1_a2: 'Led API integration with procurement, finance, and archive systems for automated data sync',
+                proj1_res: 'Received official <strong class="text-primary-text font-semibold">client satisfaction letter</strong>, became reference for follow-on deployments',
+                proj2_name: 'Textile College Digital Governance Platform', proj2_role: '· Core Team Member',
+                proj2_bg: 'Developed contract management, procurement, and internal control systems for university digital governance.',
+                proj2_a1: 'Led end-to-end requirements analysis and PRD for a regulatory governance platform, co-creating digital governance model',
+                proj2_a2: 'Solved complex business logic for contract fulfillment and settlement integration, making it the platform\'s core value',
+                proj2_res: 'Project delivered on schedule, team won <strong class="text-primary-text font-semibold">"2023 Best Team"</strong> award',
+                proj3_name: 'Smart Sales Mobile App', proj3_role: '· PM Intern',
+                proj3_bg: 'Designed ToC mobile features for user acquisition, activation and retention through data-driven optimization.',
+                proj3_a1: 'Designed a "Home Purchase Qualification" tool with rule-engine logic based on user profiles and regional policies',
+                proj3_res: 'Achieved <strong class="text-primary-text font-semibold">40%</strong> user adoption rate within the first month',
+                skills_title: 'Skills',
+                skills_prod: 'Product', skills_data: 'Data Analysis', skills_ai: 'AI & Tools', skills_domain: 'Domain Knowledge',
+                tag_interview: 'User Interview', tag_prd: 'PRD Writing', tag_analysis: 'Req Analysis', tag_planning: 'Product Planning',
+                tag_sql: 'Data Analysis (SQL)', tag_behavior: 'User Behavior Analysis',
+                tag_dify: 'Dify', tag_prompt: 'Prompt Engineering', tag_kb: 'Knowledge Base',
+                tag_xmind: 'Xmind', tag_axure: 'Axure', tag_jira: 'Jira', tag_workbuddy: 'WorkBuddy',
+                tag_contract: 'University Contract Mgmt', tag_procure: 'Procurement Mgmt', tag_ai_app: 'AI Use Cases',
+                lang_title: 'Languages', lang_en: 'English · CET-4 / CET-6, proficient in reading and writing',
+                resume_hint: 'For detailed project insights and results, please download the full resume:',
+                resume_btn: 'Download Resume (PDF)',
+                portfolio_title: 'Portfolio', portfolio_sub: 'De-classified for reference',
+                portfolio_prd_name: 'Regulatory Governance Platform', portfolio_prd_desc: 'PRD Specification · V1.0',
+                portfolio_preview: 'Preview', portfolio_dl: 'Download',
+                portfolio_proto_name: 'Settlement Confirmation Prototype', portfolio_proto_desc: 'Axure Prototype · Online Preview',
+                portfolio_proto_preview: 'Online Preview',
+                footer: 'Qin Qi · Personal Page',
+            }
+        };
+
+        let currentLang = 'zh';
+
+        function toggleLang() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            const btn = document.getElementById('langToggle');
+            btn.textContent = currentLang === 'zh' ? 'EN' : '中';
+
+            // Update text content elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            // Update HTML content elements (with <strong> etc.)
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                if (translations[currentLang][key]) {
+                    el.innerHTML = translations[currentLang][key];
+                }
+            });
+        }
+    </script>
     <script>
         const toggle = document.getElementById('navToggle');
         const mobileNav = document.getElementById('mobileNav');
